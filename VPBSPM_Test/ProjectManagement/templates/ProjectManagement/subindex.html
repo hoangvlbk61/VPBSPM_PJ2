@@ -1,0 +1,11 @@
+{% if latest_project_list %}
+    <ul>
+    {% for project in latest_project_list %}
+        <li><a href="/ProjectManagement/{{ project.id }}/">{{ project.Name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No project are available.</p>
+{% endif %}
+
+

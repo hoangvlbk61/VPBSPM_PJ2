@@ -1,0 +1,19 @@
+<h1>{{ project.Name }}</h1>
+<ul>
+{% for task in project.task_set.all %}
+    <li>{{ task.Name }}</li>
+{% endfor %}
+</ul>
+
+<!-- <h1>{{ project.Name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'ProjectManagement:task' project.id %}" method="post">
+{% csrf_token %}
+{% for task in project.task_set.all %}
+    <input type="text" name="task" id="task{{ forloop.counter }}" value="{{ task.id }}">
+    <label for="task{{ forloop.counter }}">{{ task.Name }}</label><br>
+{% endfor %}
+<input type="submit" value="Set">
+</form> -->
