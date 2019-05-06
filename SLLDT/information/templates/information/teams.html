@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3> <b>Danh sách nhóm</b>  <small> Danh sách các nhóm có <b>{{employee.name}}</b> &emsp;</small> 
+        
+      </h3>
+    </div>
+  </div>
+  
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <!-- start project list -->
+        <!-- <ul class="nav child_menu"> -->
+          <table class="table table-striped projects">
+            <thead>
+              <tr>
+                <th style="width: 20%">Nhóm</th>
+                <th style="width: 20%">Trưởng nhóm</th>
+                <th style="width: 20%">Đơn xin nghỉ</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+              {% for p in list_epl_team %}
+              <tr>
+                <td> {{p.name}} </td>
+                <td> {{p.leader}} </td>
+                <td> <a href="../../absences/{{p.id}}/requestabsencelist" class="btn btn-primary btn-xs"><i class="fa fa-phone-tasks"></i> Request Absences </a> </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!-- </ul> -->
+          <!-- end project list -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

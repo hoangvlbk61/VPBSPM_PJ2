@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+{% load paginate %}
+{% block content %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Nhân viên  <small> Danh sách các nhân viên được giao cho <b>{{user.firstname}} {{user.lastname}}</b> &emsp;</small> 
+        
+      </h3>
+    </div>
+
+  </div>
+  
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_title">
+            {% if employees %}
+            <h2>Danh sách các nhân viên <small>Tổng số: {{ employees|length }}</small></h2>
+            {% else %}
+            <h2>Không có thông tin Nhân viên</small></h2>
+            {% endif %}
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+              </ul>
+              </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <!-- start project list -->
+        <!-- <ul class="nav child_menu"> -->
+          <table class="table table-striped jambo_table bulk_action">
+            <thead>
+              <tr>
+                <th style="width: 10%">Tên</th>
+                <th style="width: 10%">Liên hệ</th>
+                <th style="width: 10%">Mã Nhân Viên</th>
+                <th style="width: 10%">Chức vụ </th>
+                <th style="width: 20%">Note</th>
+                <th style="width: 10%">Team</th>
+                <th style="width: 5%">Đơn xin nghỉ</th>
+                <th style="width: 15%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if per_page %}
+                {% paginate per_page employees %}
+              {% else%}
+                {% paginate 10 employees %}
+              {% endif %}
+              {% for p in employees %}
+              {% if forloop.counter|divisibleby:2  %}
+              <tr class="even pointer">
+              {% else %}
+              <tr class="odd pointer">
+              {% endif %}
+                <td> <a href="{% url 'common:employeedetail' p.id %}">{{ p.name }}</a> </td>
+                <td> <a href="{% url 'common:contacts' p.id %}" class="btn btn-primary btn-xs"><i class="fa fa-phone-square"></i> Liên hệ </a> </td>
+                <td> {{p.manhanvien}} </td>
+                <td> {{p.chucvu}} </td>
+                <td> {{p.note}} </td>
+                <td> <a href="{% url 'common:teams' p.id %}" class="btn btn-primary btn-xs"><i class="fa fa-group"></i> Team </a> </td>
+                <td> <a href="{% url 'absences:absencelist' p.id %}" class="btn btn-primary btn-xs"><i class="fa fa-paw"></i> Đơn xin nghỉ </a> </td>
+                <td>
+                <a href="{% url 'common:employeedetail' p.id %}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% ifequal employees|length 0 %}
+              <h6 class="text-center">No Product Records Found</h6>
+          {% endifequal %}
+          <div class="text-center row marl">
+              {% show_pages %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Danh sách liên lạc <small> nhân viên <b>{{employee.name}}</b> &emsp;</small> 
+        
+      </h3>
+    </div>
+
+  </div>
+  
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <p>Danh sách các tài khoản liên hệ của nhân viên</p>
+
+          <!-- start project list -->
+        <!-- <ul class="nav child_menu"> -->
+          <table class="table table-striped projects">
+            <thead>
+              <tr>
+                <th style="width: 10%">Ứng dụng</th>
+                <th style="width: 10%">Tài khoản</th>
+                <th style="width: 10%">Còn hoạt động ? </th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+              {% for p in list_contacts %}
+              <tr>
+                <td> {{p.contact_type}} </td>
+                <td> {{p.contact}} </td>
+                <td> 
+                    {% if p.is_active %}
+                        <button type="button" class="btn btn-danger btn-ok">Active</button> 
+                    {% else %} 
+                        <button type="button" class="btn btn-default btn-ok">Inactive</button>
+                    {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!-- </ul> -->
+          <!-- end project list -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

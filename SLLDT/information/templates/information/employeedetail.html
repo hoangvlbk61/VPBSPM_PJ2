@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3> Nhân viên: {{employee.name}}  
+      </h3>
+    </div>
+
+  </div>
+  
+  
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+        <div class="x_panel">
+            <div class="x_title">
+              <h2 class="title"> Thông tin nhân viên </h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li><a href="{% url 'common:editprofile'%}" ><i class="fa fa-wrench"></i></a>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br />
+              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="POST">
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > <a>Họ và tên</a>  <span class="required">*</span>
+                  </label> 
+                  <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center>{{employee.name}} </center> 
+                  </label> 
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name" > Mã nhân viên <span class="required">*</span>
+                    </label> 
+                    <label class="control-label col-md-6 col-sm-3 col-xs-12" for="last_name" ><center> {{employee.manhanvien}}  </center>
+                    </label> 
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Chức vụ <span class="required">*</span>
+                      </label> 
+                      <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center>{{employee.chucvu}}  </center>
+                      </label> 
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Ghi chú 
+                        </label> 
+                        <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center>{{employee.note}} </center> 
+                        </label> 
+                      </div>
+                <div class="ln_solid"></div>
+              </form>
+            </div>
+          </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2> Danh sách ngày nghỉ phép</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="collapse-link"><i class="fa fa-wrench"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            {% if list_absences %}
+            {% for p in list_absences %}
+                <article class="media event">
+                  <a class="pull-left date">
+                    <p class="month">{{p|date:"M"}}</p>
+                    <p class="day">{{p.day}}</p>
+                  </a>
+                  <div class="media-body">
+                    <a class="title" href="#">Smth</a>
+                    <p>Smth</p>
+                  </div>
+                </article>
+                {% endfor %}
+              {% else %}
+              <h3> Không có đơn nghỉ phép </h1>
+              {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2> Danh sách Logtime</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li><a class="collapse-link"><i class="fa fa-wrench"></i></a>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              {% for p in list_logtime %}
+                <article class="media event">
+                  <a class="pull-left date">
+                    <p class="month">{{p.start_time_month}}</p>
+                    <p class="day">{{p.start_time.day}}</p>
+                  </a>
+                  <div class="media-body">
+                    <a class="title" href="#">{{p.location}}</a>
+                    <p>Ghi chú: {{p.note}}</p>
+                  </div>
+                </article>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2> Danh sách giải trình</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                  </li>
+                  <li><a class="collapse-link"><i class="fa fa-wrench"></i></a>
+                  </li>
+                  <li><a class="close-link"><i class="fa fa-close"></i></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                {% for p in list_explanations %}
+                <article class="media event">
+                  <a class="pull-left date" href="{% url 'explanations:explanations' employee.id %}" >
+                    <p class="month">{{p.create_on_month }}</p>
+                    <p class="day">{{p.create_on.day}}</p>
+                  </a>
+                  <div class="media-body">
+                    <a class="title" href="{% url 'explanations:explanations' employee.id %}">Loại: {{p.explanation_type}}</a>
+                    <p>Ghi chú: {{p.note}}</p>
+                  </div>
+                </article>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

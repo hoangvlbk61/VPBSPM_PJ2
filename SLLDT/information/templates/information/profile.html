@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+<div class="x_panel">
+    <div class="x_title">
+      <h2 class="title"> <b>Thông tin cá nhân người dùng </b></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+        <li><a href="{% url 'information:editprofile'%}" ><i class="fa fa-wrench"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <br />
+      <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Họ: 
+          </label> 
+          <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" > <center>{{user.first_name}}  </center> 
+          </label> 
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name" > Tên:
+            </label> 
+            <label class="control-label col-md-6 col-sm-3 col-xs-12" for="last_name" ><center>{{user.last_name}}   </center> 
+            </label> 
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Là admin: 
+            </label> 
+            <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center>{{user.is_superuser}}   </center> 
+            </label> 
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Là nhân viên: 
+            </label> 
+            <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center>{{user.is_staff}}   </center> 
+            </label> 
+          </div>
+          <div class="form-group" >
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Còn hoạt động: 
+            </label> 
+            <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center> {{user.is_active}}</center>
+            </label> 
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Lần cuối đăng nhập: 
+            </label> 
+            <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center> {{user.last_login}}  </center> 
+            </label> 
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name" > Thời gian tham gia: 
+            </label> 
+            <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first_name" ><center>{{user.date_joined}}   </center>  
+            </label> 
+          </div>
+        <div class="ln_solid"></div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
