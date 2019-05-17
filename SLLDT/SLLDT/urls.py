@@ -22,6 +22,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('information/', include('information.urls')),
+    path('timetable/', include('timetable.urls')),
     path('', RedirectView.as_view(url='information/', permanent=True)),
 ]
 
