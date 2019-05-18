@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'information',
+    'timetable',
     'simple_pagination',
     'sorl.thumbnail',
     'bootstrap4',
     'compressor',
     'rest_framework',
-    
 ]
 
 MIDDLEWARE = [

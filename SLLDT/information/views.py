@@ -4,8 +4,8 @@ from django.template import loader
 from django.views.generic import (
     CreateView, DetailView, ListView, UpdateView, DeleteView, View, TemplateView)
 from django.urls import reverse
-from .models import User
-from .forms import LoginForm, EditProfileForm, ChangePasswordForm
+from .models import User, Class, Student, Subject, Teacher, Check_in, TimeTable, Absence, MarkSheet, Notification
+from .forms import LoginForm, EditProfileForm, ChangePasswordForm 
 from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
 from django.contrib.auth import logout, authenticate, login, hashers
 from datetime import datetime, date
@@ -232,36 +232,6 @@ class EditProfileView(LoginRequiredMixin , UpdateView):
         # context = { 'user':usr }
         return render(request, 'information/editprofile.html', context)
 
-
-# class TeamsView(LoginRequiredMixin, TemplateView):
-#     template_name = "teams.html"
-
-#     def get(self, request, *args, **kwargs):
-#         usr = request.user
-#         eid = self.kwargs['employee_id']
-#         epl = Employee.objects.get(pk=eid)
-#         list_epl_team = epl.member_teams.all()
-#         context = {'list_epl_team': list_epl_team,
-#                    'user': usr, 'employee': epl}
-#         return render(request, 'common/teams.html', context)
-
-
-# class LogTimeView(LoginRequiredMixin, TemplateView):
-#     template_name = "logtime.html"
-
-#     def get(self, request, *args, **kwargs):
-#         usr = request.user
-#         tid = self.kwargs['timeline_id']
-#         tml = Timeline.objects.get(pk=tid)
-#         eid = tml.employee_id
-#         epl = Employee.objects.get(pk=eid)
-#         #list_logtime = Logtime.objects.filter(timeline=tml)
-#         list_logtime = tml.employee.logtimes
-#         context = {'list_logtime': list_logtime,
-#                    'user': usr, 'employee': epl, 'timeline': tml}
-#         return render(request, 'common/logtime.html', context)
-
-
 # USER LIST VIEW
 
 class UserListView(LoginRequiredMixin, TemplateView):
@@ -278,3 +248,5 @@ class UserListView(LoginRequiredMixin, TemplateView):
             user_list = User.objects.all()
             context = {'user': usr, 'user_list': user_list}
             return render(request, 'information/userlist.html', context)
+
+
