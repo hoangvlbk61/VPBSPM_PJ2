@@ -8,4 +8,4 @@ app_name = 'timetable'
 urlpatterns = [
     path('', TimetableView.as_view(), name='timetable'),
     path('<int:sid>', PrivateTimeTableView.as_view(), name='privatetimetable'), 
-]
+] 

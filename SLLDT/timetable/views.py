@@ -20,7 +20,7 @@ class TimetableView(LoginRequiredMixin, TemplateView):
         firststd = myStudent[0] 
         firstClass = firststd.class_id 
         timeTable = firstClass.getTimeTableList()
-        context = {'user': usr, 'myStudent': myStudent, 'timeTable': timeTable}
+        context = {'user': usr, 'myStudent': myStudent, 'timeTable': timeTable, 'firstClass': firstClass}
         return render(request, 'timetable/timetable.html', context)
 
 
@@ -30,9 +30,9 @@ class PrivateTimeTableView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs): 
         usr = request.user
         myStudent = usr.getMyStudents()  # Get students list
-        student_id = request.sid 
-        firststd = Student.objects.get(pk=student_id)
-        firstClass = firststd.class_id
+        student_id = kwargs.get('sid', None)
+        selectedstd = Student.objects.get(pk=student_id)
+        firstClass = selectedstd.class_id
         timeTable = firstClass.getTimeTableList()
-        context = {'user': usr, 'myStudent': myStudent, 'timeTable': timeTable}
+        context = {'user': usr, 'myStudent': myStudent, 'timeTable': timeTable, 'firstClass': firstClass, 'selectedstd': selectedstd}
         return render(request, 'timetable/timetable.html', context)

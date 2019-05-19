@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+{% load paginate %}
+{% block content %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3> Học sinh <small> Danh sách học sinh được giao cho phụ huynh
+                    &emsp;</small>
+            
+            </h3>
+            
+        </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-10 ">
+                <form class="form-horizontal form-label-center">
+                
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Học sinh</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" id="student_timetable" >
+                                {% for p in myStudent %}
+                                    {% if p.id != selectedstd.id %}
+                                        <option value="{{p.id}}"> {{ p.name }}</option>
+                                    {% else %} 
+                                        <option value="{{p.id}}" selected> {{ p.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                </form>
+                
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+
+    <table class="table table-striped projects" style="text-align: center">
+        <thead style="text-align: center">
+            <tr style="text-align: center">
+                <th style="width: 1%; text-align: center">Tiết</th>
+                <th style="width: 13%; text-align: center">Thứ 2</th>
+                <th style="width: 13%; text-align: center">Thứ 3</th>
+                <th style="width: 13%; text-align: center">Thứ 4</th>
+                <th style="width: 13%; text-align: center">Thứ 5</th>
+                <th style="width: 13%; text-align: center">Thứ 6</th>
+                <th style="width: 13%; text-align: center">Thứ 7</th>
+                <th style="width: 13%; text-align: center">Chủ nhật</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tt in timeTable %}
+            <tr>
+                <td>#</td>
+                {% for p in tt %}
+                <td> {{p.name}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+</div>
+
+<script>
+    document.getElementById("student_timetable").addEventListener("change", student_timetable_function); 
+    function student_timetable_function() {
+        var x = document.getElementById("student_timetable");
+        var sUrl = "/checkin/" + x.value ; 
+        window.location = sUrl ; 
+    }
+</script>
+{% endblock %}

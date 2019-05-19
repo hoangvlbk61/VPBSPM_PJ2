@@ -23,6 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('information/', include('information.urls')),
     path('timetable/', include('timetable.urls')),
+    path('checkin/', include('checkin.urls')),
+    path('marksheet/', include('marksheet.urls')),
+    path('studentlist/', include('studentlist.urls')),
     path('', RedirectView.as_view(url='information/', permanent=True)),
 ]
 
