@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'checkin',
     'studentlist',
     'teacherlist',
+    'absence',
     'simple_pagination',
     'sorl.thumbnail',
     'bootstrap4',

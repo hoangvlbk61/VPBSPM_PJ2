@@ -29,7 +29,7 @@ class PrivateCheckinView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs): 
         usr = request.user
         myStudent = usr.getMyStudents()  # Get students list
-        student_id = request.body.sid 
+        student_id = kwargs.get('sid', None)
         selectedstd = Student.objects.get(pk=student_id)
         checkInList = selectedstd.getCheckIn()
         context = {'user': usr, 'myStudent': myStudent, 'checkInList': checkInList,'selectedstd': selectedstd }

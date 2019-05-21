@@ -45,24 +45,24 @@
     <table class="table table-striped projects" style="text-align: center">
         <thead style="text-align: center">
             <tr style="text-align: center">
-                <th style="width: 1%; text-align: center">Tiết</th>
-                <th style="width: 13%; text-align: center">Thứ 2</th>
-                <th style="width: 13%; text-align: center">Thứ 3</th>
-                <th style="width: 13%; text-align: center">Thứ 4</th>
-                <th style="width: 13%; text-align: center">Thứ 5</th>
-                <th style="width: 13%; text-align: center">Thứ 6</th>
-                <th style="width: 13%; text-align: center">Thứ 7</th>
-                <th style="width: 13%; text-align: center">Chủ nhật</th>
+                <th style="width: 15%; text-align: center">Thời gian</th>
+                <th style="width: 5%; text-align: center">Điểm số </th>
+                <th style="width: 20%; text-align: center">Môn</th>
+                <th style="width: 25%; text-align: center">Loại điểm</th>
+                <th style="width: 5%; text-align: center">Hệ số </th>
             </tr>
         </thead>
         <tbody>
-            {% for tt in timeTable %}
+            {% for submark in marksheet %}
+            {% for p in submark %}
             <tr>
-                <td>#</td>
-                {% for p in tt %}
-                <td> {{p.name}}</td>
-                {% endfor %}
+                <td> {{p.time}} </td>
+                <td> {{p.score}}</td>
+                <td> {{p.subject}}</td>
+                <td> {{p.mark_type}}</td>
+                <td> {{p.multi}}</td>
             </tr>
+            {% endfor %}
             {% endfor %}
             
         </tbody>

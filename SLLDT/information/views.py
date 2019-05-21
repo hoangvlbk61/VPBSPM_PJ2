@@ -30,6 +30,7 @@ class LoginView(TemplateView):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    user.updateStudenNotification() 
                     if user.is_superuser:
                         return HttpResponseRedirect((reverse('information:index')))
                     else:
@@ -66,14 +67,21 @@ class IndexView(LoginRequiredMixin, TemplateView):
         #     start_time__gte=today).count()
         # numberoflogtime_today = Logtime.objects.filter(
         #     start_time__contains=today).count()
-        numberofemployee= 10 
-        numberofdevice= 10 
-        numberofabsence_future = 10 
-        numberoflogtime_today= 10 
-        context = {'user': usr, 'numberofemployee': numberofemployee,
-                   'numberofdevice': numberofdevice,
-                                'numberofabsence_future': numberofabsence_future,
-                                'numberoflogtime_today': numberoflogtime_today}
+        stdList = usr.getMyStudents() 
+        absCount = 0
+        for std in stdList: 
+            absCount += std.getAbsenceList().count() 
+        teachersCount = Teacher.objects.all().count() 
+        markCount = 0 ; 
+        for std in stdList: 
+            markCount += MarkSheet.objects.filter(student_id = std).count() 
+        context = {'user': usr, 
+                   'absCount': absCount,
+                    'teachersCount': teachersCount,
+                    'markCount': markCount, 
+                    'studentsCount': usr.getMyNumberStudents(),
+                    'notiList': usr.getNotification()[:6] , 
+                    'notiCount': len(usr.getNotification()) }
         return render(request, 'information/index.html', context)
 
 

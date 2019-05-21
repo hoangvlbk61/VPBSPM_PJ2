@@ -34,5 +34,5 @@ class PrivateStudentListView(LoginRequiredMixin, TemplateView):
         selectedstd = Student.objects.get(pk=student_id)
         firstClass = selectedstd.class_id
         studentlist = firstClass.getClassStudentList()
-        context = {'user': usr, 'myStudent': myStudent, 'firstClass': firstClass, 'studentlist': studentlist }
+        context = {'user': usr, 'myStudent': myStudent, 'firstClass': firstClass, 'studentlist': studentlist,'selectedstd': selectedstd }
         return render(request, 'studentlist/studentlist.html', context)

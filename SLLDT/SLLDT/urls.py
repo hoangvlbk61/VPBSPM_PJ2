@@ -26,6 +26,8 @@ urlpatterns = [
     path('checkin/', include('checkin.urls')),
     path('marksheet/', include('marksheet.urls')),
     path('studentlist/', include('studentlist.urls')),
+    path('teacherlist/', include('teacherlist.urls')),
+    path('absence/', include('absence.urls')),
     path('', RedirectView.as_view(url='information/', permanent=True)),
 ]
 

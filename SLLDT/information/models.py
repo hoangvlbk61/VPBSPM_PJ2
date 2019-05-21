@@ -44,11 +44,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     def getMyStudents(self): 
         return Student.objects.filter(user_id=self.id) 
 
+    def updateStudenNotification(self): 
+        studentList = Student.objects.filter(user_id = self) 
+        for std in studentList: 
+            std.updateNotification() 
+
     def getNotification(self): 
-        StudentList = self.getYourStudents() 
+        StudentList = self.getMyStudents() 
         NotifyList = []
         for std in StudentList: 
-            NotifyList.append(std.getNotification()) 
+            temp = std.getNotification()
+            for noti in temp: 
+                NotifyList.append(noti) 
         return NotifyList
     
 class Class(models.Model):
@@ -65,7 +72,15 @@ class Class(models.Model):
         return self.name 
 
     def getTimeTableList(self):
-        TTList = TimeTable.objects.filter(classes=self)
+        QuerryTTList = TimeTable.objects.filter(classes=self)
+        TTList = []
+        TTList.append(QuerryTTList.get(days='Monday'))
+        TTList.append(QuerryTTList.get(days='Tuesday'))
+        TTList.append(QuerryTTList.get(days='Wednesday'))
+        TTList.append(QuerryTTList.get(days='Thursday'))
+        TTList.append(QuerryTTList.get(days='Friday'))
+        TTList.append(QuerryTTList.get(days='Saturday'))
+        TTList.append(QuerryTTList.get(days='Sunday'))
         firstLesssonList = []
         secondLesssonList = []
         thirdLesssonList = []
@@ -81,9 +96,9 @@ class Class(models.Model):
         return context 
     def getClassStudentList(self):
         studentList = Student.objects.filter(class_id=self) 
-        return StudentList     
+        return studentList     
     def getTeacherList(self): 
-        return Teacher.objects.filter(class_id=self) 
+        return Teacher.objects.filter(class_list=self) 
 
 
 
@@ -131,7 +146,7 @@ class Student(models.Model):
         return listScore
 
     def getCheckIn(self): 
-        return Check_in.objects.fitler(student_id=self)[:30]
+        return Check_in.objects.filter(student_id=self).order_by('-date')[:30]
 
     def isNotified(self): 
         NotiList = Notification.objects.filter(student_id=self).filter(is_seen = False)
@@ -142,10 +157,10 @@ class Student(models.Model):
             return False 
         
     def updateNotification(self): 
-        myParent = User.objects.get(self.user_id)
-        myScoreList = MarkSheet.objects.filter(student_id=self).filter(update_time__gte=myParent.last_login_start).filter(isNotified=False)
-        myAbsenceList = Absence.objects.filter(student_id=self).filter(approved_time__gte=myParent.last_login_start).filter(isNotified=False)
-        myCheckInList = Check_in.objects.filter(student_id=self).filter(update_time__gte=myParent.last_login_start).filter(isNotified=False)
+        myParent = User.objects.get(id=self.user_id.id)
+        myScoreList = MarkSheet.objects.filter(student_id=self).filter(update_time__gte=myParent.last_login).filter(isNotified=False)
+        myAbsenceList = Absence.objects.filter(student_id=self).filter(approved_time__gte=myParent.last_login).filter(isNotified=False)
+        myCheckInList = Check_in.objects.filter(student_id=self).filter(update_time__gte=myParent.last_login).filter(isNotified=False)
         for sc in myScoreList: 
             sc.isNotified = True 
             newnoti = Notification()
@@ -164,7 +179,11 @@ class Student(models.Model):
             newnoti.content = ck.getNoti()
             newnoti.student_id = self
             newnoti.save()
-        
+
+    def getAbsenceList(self): 
+        return Absence.objects.filter(student_id=self).order_by('time')
+
+
 class Subject(models.Model): 
     name = models.CharField(max_length= 100, choices=SUBJECT_TYPE) 
     def __str__(self): 
@@ -195,7 +214,7 @@ class Check_in(models.Model):
         ordering = ('date', )
 
     def __str__(self): 
-        return "Ngày " + self.date + " học sinh " + self.student_id.name + " nghỉ học !"
+        return "Ngày " + str(self.date) + " học sinh " + self.student_id.name + " nghỉ học !"
 
 class TimeTable(models.Model): 
     classes = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='class_belong')
@@ -215,6 +234,8 @@ class Absence (models.Model):
     reason = models.CharField(default="Phụ huynh chưa điền thông tin nghỉ phép", max_length= 200)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)   
     approved_time = models.DateTimeField(default=timezone.now) 
+    isAgree = models.BooleanField(default=False)
+    isApproved = models.BooleanField(default=False)
     isNotified = models.BooleanField(default=False)
     def __str__(self): 
         return self.time 

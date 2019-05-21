@@ -70,25 +70,8 @@
                                 <li><a href="/marksheet"><i class="fa fa-table"></i>Bảng điểm</a></li>
                                 <li><a href="/studentlist"><i class="fa fa-list"></i>Danh sách lớp</a></li>
                                 <li><a href="/teacherlist"><i class="fa fa-user"></i>Giáo viên giảng dạy</a></li>
-
-                                <li><a><i class="fa fa-building-o"></i> Nghỉ phép  <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                    <li><a href="#">Đăng ký nghỉ học</a></li>
-                                    <li><a href="#">Quản lý nghỉ học</a></li>
-                                    </ul>
-                                </li>
-                                {% if user.is_superuser %}
-                                <li><a><i class="fa fa-users"></i>User  <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                    <li><a href="#">Danh sách user</a></li>
-                                    <li><a href="#">Tạo mới user</a></li>
-                                    <li><a href="#">Chi tiết thông tin user</a></li>
-                                    <li><a href="#">Chỉnh sửa thông tin</a></li>
-                                    <li><a href="#">Xóa User</a></li>
-                                    </ul>
-                                </li>  
+                                <li><a href="/absence"><i class="fa fa-building-o"></i> Nghỉ học</a></li>
                                 <li><a href="{% url 'information:index' %}" ><i class="fa fa-home"></i> Thông tin </a></li>
-                                {% endif %}
                                 
                             </ul>
                         </div>
@@ -149,61 +132,23 @@
                                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fa fa-bell-o"></i>
-                                    <span class="badge bg-green">6</span>
+                                    <span class="badge bg-green"> {{ notiCount}}</span>
                                 </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    {% for nt in notiList %}
                                     <li>
                                         <a>
                                             <span class="image"><img src="{%static 'images/img.jpg' %}" alt="Profile Image" /></span>
                                             <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
+                                                <span> {{nt.student_id}} </span>
+                                                <span class="time"> {{nt.time}} </span>
                                             </span>
                                             <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
+                                                {{nt.content}}
                                             </span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{%static 'images/img.jpg' %}" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{%static 'images/img.jpg' %}" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{%static 'images/img.jpg' %}" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were
-                                                where...
-                                            </span>
-                                        </a>
-                                    </li>
+                                    {% endfor %} 
                                     <li>
                                         <div class="text-center">
                                             <a>

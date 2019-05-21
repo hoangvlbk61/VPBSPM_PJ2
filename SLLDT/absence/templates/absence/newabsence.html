@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+{% load paginate %}
+{% block content %}
+<div class="x_panel" >
+    <div class="x_title">
+      <h2 class="title" > <b> Đơn xin nghỉ học </b></h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <br />
+      <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Học sinh</label>
+                        <div class="col-md-6 col-sm-6 col-xs-9">
+                            <select class="form-control" id="student_timetable" name="student">
+                                {% for p in myStudent %}
+                                    {% if p.id != selectedstd.id %}
+                                        <option value="{{p.id}}"> {{ p.name }}</option>
+                                    {% else %} 
+                                        <option value="{{p.id}}" selected> {{ p.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+          <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-9" for="last_name" >Lý do {% if form.last_name.field.required %}<span class="error">*</span>{% endif %}
+              </label> 
+              <div class="col-md-6 col-sm-6 col-xs-9">
+                          <textarea class="form-control" rows="3" placeholder="Lý do nghỉ học" name="reason"> </textarea>
+                        </div>
+
+            </div>
+            
+        <div class="ln_solid"></div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <button class="btn btn-primary" type="button"><a href="." style="color:white ">Cancel</a> </button>
+                          <button class="btn btn-primary" type="reset"><a  style="color:white ">Reset</a></button> 
+              <button type="submit" class="btn btn-success"><a style="color:white ">Save and back</a> </button>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

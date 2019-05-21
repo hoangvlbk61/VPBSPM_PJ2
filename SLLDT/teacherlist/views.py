@@ -34,5 +34,5 @@ class PrivateTeacherListView(LoginRequiredMixin, TemplateView):
         selectedstd = Student.objects.get(pk=student_id)
         firstClass = selectedstd.class_id
         teacherlist = firstClass.getTeacherList()
-        context = {'user': usr, 'myStudent': myStudent, 'firstClass': firstClass, 'teacherlist': teacherlist }
+        context = {'user': usr, 'myStudent': myStudent, 'firstClass': firstClass, 'teacherlist': teacherlist, 'selectedstd': selectedstd }
         return render(request, 'teacherlist/teacherlist.html', context)

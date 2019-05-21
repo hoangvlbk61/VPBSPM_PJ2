@@ -44,7 +44,7 @@
 
     <div class="row">
         <div class="col-md-10 " style="text-align: center">
-                <h2> <b> Danh sach giao vien lop: {{firstClass}}   </b> </h2>
+                <h2> <b> Danh sách giáo viên lớp: {{firstClass}}   </b> </h2>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -52,23 +52,25 @@
     <table class="table table-striped projects" style="text-align: center">
         <thead style="text-align: center">
             <tr style="text-align: center">
-                <th style="width: 1%; text-align: center">Tiết</th>
-                <th style="width: 13%; text-align: center">Thứ 2</th>
-                <th style="width: 13%; text-align: center">Thứ 3</th>
-                <th style="width: 13%; text-align: center">Thứ 4</th>
-                <th style="width: 13%; text-align: center">Thứ 5</th>
-                <th style="width: 13%; text-align: center">Thứ 6</th>
-                <th style="width: 13%; text-align: center">Thứ 7</th>
-                <th style="width: 13%; text-align: center">Chủ nhật</th>
+                <th style="width: 15%; text-align: center">Tên</th>
+                <th style="width: 15%; text-align: center">Ngày sinh</th>
+                <th style="width: 10%; text-align: center">Là gvcn ?</th>
+                <th style="width: 15%; text-align: center">Môn</th>
+                <th style="width: 15%; text-align: center">Bằng cấp</th>
+                <th style="width: 15%; text-align: center">Email</th>
+                <th style="width: 15%; text-align: center">Điện thoại</th>
             </tr>
         </thead>
         <tbody>
-            {% for tt in timeTable %}
+            {% for teacher in teacherlist %}
             <tr>
-                <td>#</td>
-                {% for p in tt %}
-                <td> {{p.name}}</td>
-                {% endfor %}
+                <td> {{teacher.name}}</td>
+                <td> {{teacher.dob}}</td>
+                <td> {{teacher.isHeadTeacher}}</td>
+                <td> {{teacher.subjects}}</td>
+                <td> {{teacher.degree}}</td>
+                <td> {{teacher.email}}</td>
+                <td> {{teacher.phone}} </td> 
             </tr>
             {% endfor %}
             
@@ -81,7 +83,7 @@
     document.getElementById("student_timetable").addEventListener("change", student_timetable_function); 
     function student_timetable_function() {
         var x = document.getElementById("student_timetable");
-        var sUrl = "/timetable/" + x.value ; 
+        var sUrl = "/teacherlist/" + x.value ; 
         window.location = sUrl ; 
     }
 </script>

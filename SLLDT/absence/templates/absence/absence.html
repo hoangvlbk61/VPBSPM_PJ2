@@ -6,8 +6,7 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3> Học sinh <small> Danh sách học sinh được giao cho phụ huynh
-                    &emsp;</small>
+            <h3> Danh sách xin nghỉ phép 
             
             </h3>
             
@@ -17,8 +16,20 @@
 
     <div class="clearfix"></div>
 
+<div class="x_content" >
+    <div class="row">
+        <div class="col-md-10 " style="text-align: center">
+                
+                <a style="color: white" href="newabsence"><button type="button" class="btn btn-round btn-success"> Xin nghỉ học</button></a>
+                
+        </div>
+    </div>
+</div>
+    <div class="clearfix"></div>
+
     <div class="row">
         <div class="col-md-10 ">
+                
                 <form class="form-horizontal form-label-center">
                 
                     <div class="form-group">
@@ -42,33 +53,26 @@
     </div>
     <div class="clearfix"></div>
 
-    <div class="row">
-        <div class="col-md-10 " style="text-align: center">
-                <h2> <b> Danh sach hoc sinh lop: {{firstClass}}   </b> </h2>
-        </div>
-    </div>
-    <div class="clearfix"></div>
+    
 
     <table class="table table-striped projects" style="text-align: center">
         <thead style="text-align: center">
             <tr style="text-align: center">
-                <th style="width: 1%; text-align: center">Tiết</th>
-                <th style="width: 13%; text-align: center">Thứ 2</th>
-                <th style="width: 13%; text-align: center">Thứ 3</th>
-                <th style="width: 13%; text-align: center">Thứ 4</th>
-                <th style="width: 13%; text-align: center">Thứ 5</th>
-                <th style="width: 13%; text-align: center">Thứ 6</th>
-                <th style="width: 13%; text-align: center">Thứ 7</th>
-                <th style="width: 13%; text-align: center">Chủ nhật</th>
+                <th style="width: 10%; text-align: center">Thời gian </th>
+                <th style="width: 30%; text-align: center">Lý do xin nghỉ</th>
+                <th style="width: 10%; text-align: center">Thời gian xác nhận</th>
+                <th style="width: 10%; text-align: center"> Xác nhận </th>
+                <th style="width: 10%; text-align: center"> Đồng ý </th>
             </tr>
         </thead>
         <tbody>
-            {% for tt in timeTable %}
+            {% for abs in absenceList %}
             <tr>
-                <td>#</td>
-                {% for p in tt %}
-                <td> {{p.name}}</td>
-                {% endfor %}
+                <td> {{abs.time}}</td>
+                <td> {{abs.reason}}</td>
+                <td> {{abs.approved_time}}</td>
+                <td> {{abs.isApproved}}</td>
+                <td> {{abs.isAgree}}</td>
             </tr>
             {% endfor %}
             
@@ -81,7 +85,7 @@
     document.getElementById("student_timetable").addEventListener("change", student_timetable_function); 
     function student_timetable_function() {
         var x = document.getElementById("student_timetable");
-        var sUrl = "/timetable/" + x.value ; 
+        var sUrl = "/absence/" + x.value ; 
         window.location = sUrl ; 
     }
 </script>
